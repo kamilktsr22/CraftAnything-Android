@@ -1,0 +1,27 @@
+[package]
+name = "craft-android"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+publish = false
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "craft_android"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# The actual parser from Storytold's Craft Anything. This pins a reviewed upstream revision.
+# First Cargo build fetches this repository and crates.io dependencies from the internet.
+craft-anything-formats = { git = "https://github.com/storytold/craft-anything.git", rev = "56aa31976b4ff0950e6b34ba020b0a568d2462fa" }
+serde_json = "1"
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = { version = "0.21.1", default-features = false }
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
