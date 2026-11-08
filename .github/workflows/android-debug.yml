@@ -25,7 +25,7 @@ jobs:
       - name: Install Android SDK + NDK
         shell: bash
         run: |
-          sdkmanager --install "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018"
+          "$(find /usr/local/lib/android/sdk/cmdline-tools -type f -name sdkmanager -print -quit)" --install "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018"
           echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/27.2.12479018" >> "$GITHUB_ENV"
       - name: Set up Rust (Android ARM64)
         uses: actions-rust-lang/setup-rust-toolchain@v1
